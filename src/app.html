@@ -4,9 +4,38 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			@font-face {
+				font-family: 'Material Symbols Outlined';
+				font-style: normal;
+				font-weight: 100 700;
+				src: url(%sveltekit.assets%/material-symbols-outlined.woff2) format('woff2');
+			}
+			@font-face {
+				font-family: 'Roboto Flex';
+				font-style: normal;
+				font-weight: 100 1000;
+				src: url(%sveltekit.assets%/roboto-flex.woff2) format('woff2');
+			}
+			body {
+				background-color: var(--np-color-background);
+				color: var(--np-color-on-background);
+			}
+		</style>
+		<script>
+			const storageTheme = localStorage.getItem('theme') || ''
+			const theme =
+				['light', 'dark'].find((supportedTheme) => supportedTheme === storageTheme) ?? ''
+
+			if (theme) {
+				document.documentElement.setAttribute('data-theme', theme)
+			} else {
+				document.documentElement.removeAttribute('data-theme')
+			}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
+		<div>%sveltekit.body%</div>
 	</body>
 </html>

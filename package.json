@@ -18,6 +18,9 @@
 	"sideEffects": [
 		"**/*.css"
 	],
+	"overrides": {
+		"cookie": "^1.0.2"
+	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
@@ -31,10 +34,12 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
+		"@material/material-color-utilities": "^0.3.0",
 		"@sveltejs/adapter-auto": "^7.0.0",
 		"@sveltejs/kit": "^2.49.1",
 		"@sveltejs/package": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"noph-ui": "^0.30.13",
 		"publint": "^0.3.15",
 		"svelte": "^5.45.6",
 		"svelte-check": "^4.3.4",
@@ -43,5 +48,8 @@
 	},
 	"keywords": [
 		"svelte"
-	]
+	],
+	"dependencies": {
+		"svelte-gamepad-virtual-joystick": "^1.0.14"
+	}
 }
