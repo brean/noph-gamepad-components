@@ -26,3 +26,10 @@ npm run dev
 ```
 
 ## Supported Components
+
+## License
+This library noph-gamepad-components is published under the BSD-3 license, same as [Svelte Gamepad and virtual JoyStick](https://github.com/brean/svelte-gamepad-virtual-joystick)
+
+noph UI as well as the components based on it (in noph_ext) are published under the MIT license, see NOPH_LICENSE.
+
+This licensing model assures that components can simply be copied over from the noph_ext-folder of this library to the main library and components can easily be merged with svelte-gampead-virtual-joystick if needed.

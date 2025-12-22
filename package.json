@@ -50,6 +50,6 @@
 		"svelte"
 	],
 	"dependencies": {
-		"svelte-gamepad-virtual-joystick": "^1.0.14"
+		"svelte-gamepad-virtual-joystick": "^1.0.15"
 	}
 }
