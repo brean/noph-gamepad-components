@@ -22,4 +22,5 @@ export interface SliderProps extends Omit<HTMLInputAttributes, 'size' | 'type'> 
     inputMapping?: SliderInput
     context?: string[]
     requiresFocus?: boolean
+	addHints?: boolean
 }

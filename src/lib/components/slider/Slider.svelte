@@ -16,11 +16,12 @@
       keys_neg: ['a'],
       keys: ['e', 'enter'],  // activate/focus next component
       invert: false
-      },
-      context=['default'],
-      requiresFocus = true,
-      value = $bindable<number>(0),
-      inputElement = $bindable<HTMLInputElement>(),
+    },
+    context=['default'],
+    requiresFocus = true,
+    value = $bindable<number>(0),
+    inputElement = $bindable<HTMLInputElement>(),
+    addHints = true,
     ...props
   }: SliderProps = $props();
   let slider = $state();
@@ -38,21 +39,10 @@
     }
   })
 </script>
-<Slider
-  bind:this={slider}
-  bind:inputElement
-  bind:value
-  {...props}
-></Slider>
 
-<div class="vslider">
-  <Hint
-    text="" {context}
-    keys={inputMapping.keys_neg}
-    buttons={inputMapping.buttons_neg}
-    style={"position: absolute; top: 0px; left: 20px;"}
-    />
-  <div style="position: absolute; left: 100%;">
+{#if addHints && props.vertical}
+<div class="slider">
+  <div class="vslider" style:z-index="2">
     <Hint
       text="" {context}
       keys={inputMapping.keys_pos}
@@ -61,12 +51,53 @@
       />
   </div>
 </div>
+{/if}
+
+<Slider
+  bind:this={slider}
+  bind:inputElement
+  bind:value
+  {...props}
+></Slider>
+
+{#if addHints}
+<div class="slider">
+  <Hint
+    text="" {context}
+    keys={inputMapping.keys_neg}
+    buttons={inputMapping.buttons_neg}
+    style={"position: absolute; top: 0px; left: 20px;"}
+    />
+</div>
+
+{#if !props.vertical}
+<div class="slider">
+  <div class="hslider">
+    <Hint
+      text="" {context}
+      keys={inputMapping.keys_pos}
+      buttons={inputMapping.buttons_pos}
+      style={"position: relative; top: 0px; right: -10px;"}
+      />
+  </div>
+</div>
+{/if}
+{/if}
 
 <style>
-  .vslider {
+  .slider {
     position: relative;
-    width: 100%;
+  }
+
+  .hslider {
+    position: absolute;
+    left: 100%;
     margin-left: 0px;
     margin-right: 0px;
+  }
+
+  .vslider {
+    position: absolute;
+    top: 0%;
   }
 </style>
