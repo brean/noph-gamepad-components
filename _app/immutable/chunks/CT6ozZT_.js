@@ -1,0 +1,1 @@
+import{a as s}from"./6Ha0VMhs.js";class u extends s{thisGamepadButton(t,e){return super.thisGamepadButton(t,e)&&this.input.buttons.includes(e)}thisKey(t){return this.input.keys.includes(t.key.toLowerCase())||!1}}export{u as B};
