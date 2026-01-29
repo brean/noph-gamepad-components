@@ -70,7 +70,7 @@
 </script>
 
 <div class={cssclassWrapper}>
-<IconButton bind:element={element} {...props}>
+<IconButton bind:element={element} {loading} {...props}>
 	{#if children}
 		{@render children()}
 	{/if}
