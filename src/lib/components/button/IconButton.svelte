@@ -14,6 +14,7 @@
 	let {
 		children = undefined,
 		disabled = false,
+		loading = false,
 		onpressed = undefined,  // only once when the pressed-state changes
 		onhold = undefined,   // every event while the button is pressed
 		onrelease = undefined,
@@ -40,12 +41,12 @@
 	let element: HTMLButtonElement | HTMLAnchorElement | undefined = $state();
 
 	const buttonClick = () => {
-		if (!element || disabled) return;
+		if (!element || disabled || loading) return;
 
 		const rippleEl = element.querySelector<HTMLDivElement>('.np-ripple-surface');
 		if (rippleEl) {
-						rippleEl.click();
-				}
+			rippleEl.click();
+		}
 		element.click();
 	};
 

@@ -67,7 +67,7 @@
 </script>
 
 <div class={cssclassWrapper}>
-<Button bind:element={element} {...props}>
+<Button bind:element={element} {loading} {...props}>
 	{#if children}
 		{@render children()}
 	{/if}
