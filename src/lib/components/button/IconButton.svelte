@@ -1,23 +1,26 @@
 <script lang="ts">
-	import {
+	import { 
+		type ButtonInput,
 		ButtonInputComponent,
 		GamepadButtons,
-		Hint,
-		registerComponent, unregisterComponent
+		registerComponent, unregisterComponent,
+		Hint
 	} from "svelte-gamepad-virtual-joystick";
 
-	import { Button } from 'noph-ui';
-	import type { ButtonProps } from './types.ts';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from "svelte";
+	import type { IconButtonProps } from "./types.ts";
+    import { IconButton } from "noph-ui";
 
 	let {
 		children = undefined,
 		disabled = false,
-		loading = false,
-		onpointerout = undefined,
-		onpressed = undefined,
-		onhold = undefined,
+		onpressed = undefined,  // only once when the pressed-state changes
+		onhold = undefined,   // every event while the button is pressed
 		onrelease = undefined,
+		onpointerout = undefined,
+
+		color = 'primary',
+		style = '',
 		inputMapping = {
 			name: '',
 			gamepad: -1,
@@ -28,17 +31,16 @@
 		context = ['default'],
 		// button is one of the few elements that can be activated globally by
 		// default while other UI-components like Slider, List or Joystick
-		// always needs to be focussed.
+		// need to be focussed.
 		requiresFocus=false,
 		...props
-	}: ButtonProps = $props();
-
+	}: IconButtonProps = $props();
 	let btnInputElement: ButtonInputComponent;
 
 	let element: HTMLButtonElement | HTMLAnchorElement | undefined = $state();
 
 	const buttonClick = () => {
-		if (!element || disabled || loading) return;
+		if (!element || disabled) return;
 
 		const rippleEl = element.querySelector<HTMLDivElement>('.np-ripple-surface');
 		if (rippleEl) {
@@ -67,11 +69,11 @@
 </script>
 
 <div class={cssclassWrapper}>
-<Button bind:element={element} {...props}>
+<IconButton bind:element={element} {...props}>
 	{#if children}
 		{@render children()}
 	{/if}
-</Button>
+</IconButton>
 <Hint
 	{context}
 	keys={inputMapping.keys}
@@ -95,3 +97,5 @@
 		display: inline-block; /* Or 'block', depending on your layout */
 	}
 </style>
+
+

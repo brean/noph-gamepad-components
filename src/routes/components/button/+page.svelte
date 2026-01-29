@@ -15,4 +15,4 @@
 <h1>Buttons</h1>
 <Button onclick={handleClick} size="m" variant="outlined">Press <Icon type="ps4" input={GamepadButtons.CROSS}></Icon> or <Icon type="xbox" input={GamepadButtons.A}></Icon> on your gamepad or <Icon type="keyboard_mouse" input={'e'}></Icon> on your keyboard</Button>
 <br />
-...or use a mouse click or finger press.
+...or use a mouse click or touch.

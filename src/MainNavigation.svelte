@@ -24,9 +24,21 @@
 />
 <NavigationDrawerItem
 	onclick={onclose}
+	label="IconButton"
+	href="/components/icon-button"
+	selected={page.url.pathname === '/components/icon-button'}
+/>
+<NavigationDrawerItem
+	onclick={onclose}
 	label="Slider"
 	href="/components/slider"
 	selected={page.url.pathname === '/components/slider'}
+/>
+<NavigationDrawerItem
+	onclick={onclose}
+	label="Switch"
+	href="/components/switch"
+	selected={page.url.pathname === '/components/switch'}
 />
 <style>
 	.header {

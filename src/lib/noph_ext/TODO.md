@@ -2,4 +2,3 @@
 
 Not (yet) integrated in noph are:
   - Slider
-  - Switch

@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment'
 	import { IconButton, SegmentedButton, Menu } from 'noph-ui'
 	import Icon from './lib/noph_ext/Icon.svelte'
-	import { argbFromHex, Hct, hexFromArgb, SchemeContent } from '@material/material-color-utilities'
+	import { argbFromHex, Hct, hexFromArgb, SchemeContent } from '@materialx/material-color-utilities'
 	import { onMount } from 'svelte'
 
 	let theme: string | null = $state(null)
