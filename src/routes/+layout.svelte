@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { IconButton, NavigationDrawer } from 'noph-ui'
-  import MainNavigation from '../MainNavigation.svelte'
   import 'noph-ui/defaultTheme'
   import '../app.css'
+  import '@fontsource-variable/material-symbols-outlined';
+  import '@fontsource/roboto-flex';
+
+  import { IconButton, NavigationDrawer } from 'noph-ui'
+  import MainNavigation from '../MainNavigation.svelte'
   import Icon from '$lib/noph_ext/Icon.svelte';
   import ThemeButton from '../ThemeButton.svelte'
   import { component_state, GamepadButtons, InputManager, VirtualButton } from 'svelte-gamepad-virtual-joystick';
