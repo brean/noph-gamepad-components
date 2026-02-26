@@ -1,7 +1,7 @@
 <script lang="ts">
   import 'noph-ui/defaultTheme'
   import '../app.css'
-  import '@fontsource-variable/material-symbols-outlined';
+  import '@fontsource/material-symbols-outlined';
   import '@fontsource/roboto-flex';
 
   import { IconButton, NavigationDrawer } from 'noph-ui'
