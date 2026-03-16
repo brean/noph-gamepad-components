@@ -36,6 +36,12 @@
 />
 <NavigationDrawerItem
 	onclick={onclose}
+	label="NavigationDrawer"
+	href="/components/navigation-drawer"
+	selected={page.url.pathname === '/components/navigation-drawer'}
+/>
+<NavigationDrawerItem
+	onclick={onclose}
 	label="Switch"
 	href="/components/switch"
 	selected={page.url.pathname === '/components/switch'}
