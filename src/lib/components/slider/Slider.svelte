@@ -2,7 +2,7 @@
   import type { SliderProps } from './types.js';
   import Slider from '../../noph_ext/slider/Slider.svelte'
   import { GamepadButtons, Hint, registerComponent, SliderInputComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
-  import { onMount, tick } from 'svelte';
+  import { onMount } from 'svelte';
   let {
     inputMapping = {
       name: 'Slider',
