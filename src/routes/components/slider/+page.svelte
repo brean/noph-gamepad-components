@@ -1,6 +1,5 @@
 <script lang="ts">
   import Slider from '$lib/components/slider/Slider.svelte'
-  import { onMount } from 'svelte';
   import { focusNextElement, focusPreviousElement, GamepadButtons, Icon, VirtualButton, type SliderInput } from 'svelte-gamepad-virtual-joystick';
 
   let valueFirst = $state(50);
@@ -34,7 +33,7 @@
     keys: ['q']
   };
   
-  onMount(() => {
+  $effect(() => {
     if (!firstSlider) return;
     firstSlider.focus();
   })

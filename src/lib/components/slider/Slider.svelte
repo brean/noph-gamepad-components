@@ -2,7 +2,7 @@
   import type { SliderProps } from './types.js';
   import Slider from '../../noph_ext/slider/Slider.svelte'
   import { GamepadButtons, Hint, registerComponent, SliderInputComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   let {
     inputMapping = {
       name: 'Slider',
@@ -20,13 +20,15 @@
     context=['default'],
     requiresFocus = true,
     value = $bindable<number>(0),
-    inputElement = $bindable<HTMLInputElement>(),
+    inputElement = $bindable<HTMLInputElement | undefined>(undefined),
     addHints = true,
     ...props
   }: SliderProps = $props();
   let slider = $state();
 
   onMount(() => {
+    let destroyed = false;
+    if (destroyed || !inputElement) return;
     const sliderInput = new SliderInputComponent(
       inputMapping,
       (_value: number) => { value = _value; },
@@ -35,6 +37,8 @@
       inputElement, requiresFocus,  props.onpressed);
     registerComponent(context, sliderInput);
     return () => {
+      destroyed = true;
+      if (!sliderInput) return;
       unregisterComponent(context, sliderInput);
     }
   })
