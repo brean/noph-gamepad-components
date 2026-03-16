@@ -14,7 +14,7 @@ const config = {
 		}),
 		paths: {
 			base: '/noph-gamepad-components',
-			relative: true
+			relative: false
 		}
 		
 	}

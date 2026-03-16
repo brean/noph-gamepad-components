@@ -1,50 +1,53 @@
 <script lang="ts">
-	import { page } from '$app/state'
-	import { Divider, NavigationDrawerItem } from 'noph-ui'
+	import { page } from '$app/state';
+	import { resolve } from '$app/paths'
+	import { Divider, NavigationDrawerItem } from 'noph-ui';
 	let {
 		onclose,
 	}: {
 		onclose?: () => void
-	} = $props()
+	} = $props();
+
+	const isActive = (path: string) => page.url.pathname.endsWith(path);
 </script>
 
 <div class="header">About</div>
 <NavigationDrawerItem
 	onclick={onclose}
 	label="Quick Start"
-	href="/about/quick-start"
-	selected={page.url.pathname === '/about/quick-start'}
+	href={resolve('/about/quick-start')} 
+	selected={isActive('/about/quick-start')}
 />
 <div class="header">Components</div>
 <NavigationDrawerItem
 	onclick={onclose}
 	label="Button"
-	href="/components/button"
-	selected={page.url.pathname === '/components/button'}
+	href={resolve('/components/button')}
+	selected={isActive('/components/button')}
 />
 <NavigationDrawerItem
 	onclick={onclose}
 	label="IconButton"
-	href="/components/icon-button"
-	selected={page.url.pathname === '/components/icon-button'}
+	href={resolve('/components/icon-button')}
+	selected={isActive('/components/icon-button')}
 />
 <NavigationDrawerItem
 	onclick={onclose}
 	label="Slider"
-	href="/components/slider"
-	selected={page.url.pathname === '/components/slider'}
+	href={resolve('/components/slider')}
+	selected={isActive('/components/slider')}
 />
 <NavigationDrawerItem
 	onclick={onclose}
 	label="NavigationDrawer"
-	href="/components/navigation-drawer"
-	selected={page.url.pathname === '/components/navigation-drawer'}
+	href={resolve('/components/navigation-drawer')}
+	selected={isActive('/components/navigation-drawer')}
 />
 <NavigationDrawerItem
 	onclick={onclose}
 	label="Switch"
-	href="/components/switch"
-	selected={page.url.pathname === '/components/switch'}
+	href={resolve('/components/switch')}
+	selected={isActive('/components/switch')}
 />
 <style>
 	.header {
