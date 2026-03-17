@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import Slider from '$lib/components/slider/Slider.svelte'
   import { focusNextElement, focusPreviousElement, GamepadButtons, Icon, VirtualButton, type SliderInput } from 'svelte-gamepad-virtual-joystick';
 
@@ -55,12 +56,14 @@ This one is vertical, so we change to <Icon type="ps4" input={GamepadButtons.DPA
 <VirtualButton
   onpressed={() => {
     focusNextElement();
+    return true;
   }}
   inputMapping={inputPrevious}
 ></VirtualButton>
 <VirtualButton
   onpressed={() => {
     focusPreviousElement();
+    return true;
   }}
   inputMapping={inputNext}
 ></VirtualButton>

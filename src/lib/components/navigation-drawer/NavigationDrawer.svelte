@@ -11,6 +11,7 @@
 		onrelease = undefined,
 		selectedIndex = $bindable(0),
 		focussed = $bindable(0),
+		tabindex = -1,
 		inputMapping = {
 			name: 'Nav',
 			gamepad: -1,
@@ -26,11 +27,10 @@
 		context = ['default'],
 		consumePress=false,
 		wrapFocus=true,
+		element=$bindable(),
 		...attributes
 	}: NavigationDrawerProps = $props();
 
-	let element: HTMLElement | undefined = $state();
-	
 	const getNavItems = () => {
 		if (!element) return [];
 		return Array.from(
@@ -51,6 +51,13 @@
 		}
 
 		focussed = next;
+		(items[focussed] as HTMLElement)?.focus();
+	}
+
+	const focusItem = (index: number) => {
+		const items = getNavItems();
+		if (items.length === 0) return;
+		focussed = index;
 		(items[focussed] as HTMLElement)?.focus();
 	}
 
@@ -82,7 +89,7 @@
 		const handleFocusIn = () => addActiveComponent(navInputComponent);
 		const handleFocusOut = () => {
 			const idx = component_state.activeComponents.indexOf(navInputComponent);
-			if (idx !== -1) component_state.activeComponents.splice(idx, 1);
+			if (idx >= 0) component_state.activeComponents.splice(idx, 1);
 		};
 
 		element.addEventListener('focusin', handleFocusIn);
@@ -97,7 +104,7 @@
 		}
 	})
 </script>
-<NophNavDrawer bind:element {...attributes}>
+<NophNavDrawer bind:element {tabindex} {...attributes}>
 	{#if children}
 		{@render children()}
 	{/if}

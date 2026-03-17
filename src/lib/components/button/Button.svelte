@@ -42,9 +42,11 @@
 
 		const rippleEl = element.querySelector<HTMLDivElement>('.np-ripple-surface');
 		if (rippleEl) {
-						rippleEl.click();
-				}
-		element.click();
+			rippleEl.click();
+		} else {
+			element.click();
+		}
+		
 	};
 
 	class NophButtonInputElement extends ButtonInputComponent {

@@ -3,9 +3,10 @@
   import { GamepadButtons, Icon } from 'svelte-gamepad-virtual-joystick';
 
   function handleClick() {
-    console.log('Action triggered.')
+    console.log('Action triggered.');
+    clicks++;
   }
-
+  let clicks = 0;
 </script>
 
 <svelte:head>
@@ -16,3 +17,5 @@
 <Button onclick={handleClick} size="m" variant="outlined">Press <Icon type="ps4" input={GamepadButtons.CROSS}></Icon> or <Icon type="xbox" input={GamepadButtons.A}></Icon> on your gamepad or <Icon type="keyboard_mouse" input={'e'}></Icon> on your keyboard</Button>
 <br />
 ...or use a mouse click or touch.
+<br /><br />
+Clicked: {clicks} times
