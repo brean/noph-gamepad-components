@@ -13,10 +13,10 @@
 	let {
 		disabled = false,
 		inputElement = $bindable(),
+		selected = $bindable(false),
 		onpressed = undefined,  // only once when the pressed-state changes
 		onhold = undefined,   // every event while the button is pressed
 		onrelease = undefined,
-
 		inputMapping = {
 			name: '',
 			gamepad: -1,
@@ -61,7 +61,7 @@
 </script>
 
 <div class={cssclassWrapper}>
-<Switch bind:inputElement bind:element {...props} />
+<Switch bind:inputElement bind:element bind:selected {...props} />
 <Hint
 	{context}
 	keys={inputMapping.keys}

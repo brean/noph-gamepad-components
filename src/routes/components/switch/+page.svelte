@@ -8,6 +8,7 @@
 		console.log('Action triggered.')
 	}
 
+	let selected = $state(false);
 </script>
 
 <svelte:head>
@@ -15,6 +16,9 @@
 </svelte:head>
 
 <h1>Switch</h1>
-<Switch />
+<Switch onpressed={handleClick} bind:selected />
 <br />
+Switch is selected: {selected}.
+<br /><br />
+
 Press <GamePadIcon type="ps4" input={GamepadButtons.CROSS}></GamePadIcon> or <GamePadIcon type="xbox" input={GamepadButtons.A}></GamePadIcon> on your gamepad or <GamePadIcon type="keyboard_mouse" input={'e'}></GamePadIcon> on your keyboard or use a mouse click or touch.

@@ -21,7 +21,7 @@
 		"**/*.css"
 	],
 	"overrides": {
-		"cookie": "^1.0.2"
+		"cookie": "^1.0.3"
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",

@@ -29,7 +29,6 @@
 			keys: ['e']
 		}}
 		onclick={() => {
-			console.log('x');
 			if (drawerElement) {
 				drawerElement.togglePopover();
 				tick().then(() => {
