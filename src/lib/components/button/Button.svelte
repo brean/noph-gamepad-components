@@ -8,7 +8,7 @@
 
 	import { Button } from 'noph-ui';
 	import type { ButtonProps } from './types.ts';
-	import { onMount } from 'svelte';
+    import { untrack } from "svelte";
 
 	let {
 		children = undefined,
@@ -56,11 +56,13 @@
 		}
 	}
 
-	onMount(() => {
-		btnInputElement = new NophButtonInputElement(
-			inputMapping, element, requiresFocus,
-			onpressed, onhold, onrelease);
-		registerComponent(context, btnInputElement);
+	$effect(() => {
+		untrack(() => {
+			btnInputElement = new NophButtonInputElement(
+				inputMapping, element, requiresFocus,
+				onpressed, onhold, onrelease);
+			registerComponent(context, btnInputElement);
+		});
 		return () => {
 			if (!btnInputElement) { return };
 			unregisterComponent(context, btnInputElement);

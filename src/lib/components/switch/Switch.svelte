@@ -6,9 +6,9 @@
 		Hint
 	} from "svelte-gamepad-virtual-joystick";
 
-	import { onMount } from "svelte";
 	import type { SwitchProps } from "./types.ts";
     import { Switch } from "noph-ui";
+    import { untrack } from "svelte";
 
 	let {
 		disabled = false,
@@ -46,11 +46,13 @@
 		}
 	}
 
-	onMount(() => {
-		switchInputElement = new NophSwitchInputElement(
-			inputMapping, element, requiresFocus,
-			onpressed, onhold, onrelease);
-		registerComponent(context, switchInputElement);
+	$effect(() => {
+		untrack(() => {
+			switchInputElement = new NophSwitchInputElement(
+				inputMapping, element, requiresFocus,
+				onpressed, onhold, onrelease);
+			registerComponent(context, switchInputElement);
+		})
 		return () => {
 			if (!switchInputElement) { return };
 			unregisterComponent(context, switchInputElement);

@@ -8,6 +8,7 @@ export interface SliderProps extends Omit<HTMLInputAttributes, 'size' | 'type'> 
 	min?: number
 	max?: number
 	step?: number
+	tabindex?: number
 	disabled?: boolean
 	showValue?: boolean
 	size?: SliderSize

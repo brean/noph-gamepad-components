@@ -7,7 +7,7 @@
 		Hint
 	} from "svelte-gamepad-virtual-joystick";
 
-	import { onMount, type Snippet } from "svelte";
+	import { untrack, type Snippet } from "svelte";
 	import type { IconButtonProps } from "./types.ts";
     import { IconButton } from "noph-ui";
 
@@ -57,11 +57,13 @@
 		}
 	}
 
-	onMount(() => {
-		btnInputElement = new NophButtonInputElement(
-			inputMapping, element, requiresFocus,
-			onpressed, onhold, onrelease);
-		registerComponent(context, btnInputElement);
+	$effect(() => {
+		untrack(() => {
+			btnInputElement = new NophButtonInputElement(
+				inputMapping, element, requiresFocus,
+				onpressed, onhold, onrelease);
+			registerComponent(context, btnInputElement);
+		});
 		return () => {
 			if (!btnInputElement) { return };
 			unregisterComponent(context, btnInputElement);

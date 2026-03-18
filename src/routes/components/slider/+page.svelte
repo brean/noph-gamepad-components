@@ -1,7 +1,9 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+    import { afterNavigate } from '$app/navigation';
   import Slider from '$lib/components/slider/Slider.svelte'
-  import { focusNextElement, focusPreviousElement, GamepadButtons, Icon, VirtualButton, type SliderInput } from 'svelte-gamepad-virtual-joystick';
+  import { tick, untrack } from 'svelte';
+  import { component_state, focusNextElement, focusPreviousElement, GamepadButtons, Icon, VirtualButton, type SliderInput } from 'svelte-gamepad-virtual-joystick';
 
   let valueFirst = $state(50);
   let valueSecond = $state(40);
@@ -33,11 +35,12 @@
     buttons: [GamepadButtons.BUMPER_LEFT],
     keys: ['q']
   };
-  
-  $effect(() => {
-    if (!firstSlider) return;
-    firstSlider.focus();
-  })
+
+  afterNavigate(async () => {
+    await tick();
+    firstSlider?.focus();
+    
+  });
 </script>
 
 <svelte:head>

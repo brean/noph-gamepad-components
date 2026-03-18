@@ -288,6 +288,7 @@
 		height: 2px;
 	}
 
+	.np-slider-container:has(.np-input:focus) .handle,
 	.np-slider-container:has(.np-input:focus-visible) .handle {
 		outline-style: solid;
 		outline-color: var(--np-color-secondary);
@@ -341,6 +342,7 @@
 	}
 
 	.value-indicator.visible,
+	.np-slider-container:has(.np-input:focus) .value-indicator,
 	.np-slider-container:has(.np-input:focus-visible) .value-indicator {
 		opacity: 1;
 	}
@@ -351,6 +353,7 @@
 		transform: translateX(-50%) scale(0.8);
 	}
 	.horizontal .value-indicator.visible,
+	.horizontal:has(.np-input:focus) .value-indicator,
 	.horizontal:has(.np-input:focus-visible) .value-indicator {
 		transform: translateX(-50%) scale(1);
 	}

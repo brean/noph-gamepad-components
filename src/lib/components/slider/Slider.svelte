@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { SliderProps } from './types.js';
   import Slider from '../../noph_ext/slider/Slider.svelte'
-  import { GamepadButtons, Hint, registerComponent, SliderInputComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
-  import { onMount } from 'svelte';
+  import { addActiveComponent, component_state, GamepadButtons, Hint, registerComponent, SliderInputComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
+  import { untrack } from 'svelte';
+
   let {
     inputMapping = {
       name: 'Slider',
@@ -17,29 +18,45 @@
       keys: ['e', 'enter'],  // activate/focus next component
       invert: false
     },
+    tabindex=-1,
     context=['default'],
     requiresFocus = true,
     value = $bindable<number>(0),
-    inputElement = $bindable<HTMLInputElement | undefined>(undefined),
+    inputElement = $bindable<HTMLInputElement | undefined>(),
     addHints = true,
     ...props
   }: SliderProps = $props();
+
   let slider = $state();
 
-  onMount(() => {
-    let destroyed = false;
-    if (destroyed || !inputElement) return;
-    const sliderInput = new SliderInputComponent(
-      inputMapping,
-      (_value: number) => { value = _value; },
-      () => {return value;},
-      props.min || 0, props.max || 100, props.step || 1,
-      inputElement, requiresFocus,  props.onpressed);
-    registerComponent(context, sliderInput);
+  let sliderInput: SliderInputComponent;
+
+	const handleFocusIn = () => addActiveComponent(sliderInput);
+	const handleFocusOut = () => {
+		const idx = component_state.activeComponents.indexOf(sliderInput);
+		if (idx >= 0) component_state.activeComponents.splice(idx, 1);
+	};
+
+  $effect(() => {
+    if (!inputElement) return;
+    untrack(() => {
+      if (!inputElement) return;
+      sliderInput = new SliderInputComponent(
+        inputMapping,
+        (_value: number) => { value = _value; },
+        () => {return value;},
+        props.min || 0, props.max || 100, props.step || 1,
+        inputElement, requiresFocus,  props.onpressed);
+      registerComponent(context, sliderInput);
+
+			inputElement.addEventListener('focusin', handleFocusIn);
+			inputElement.addEventListener('focusout', handleFocusOut);
+    })
     return () => {
-      destroyed = true;
-      if (!sliderInput) return;
       unregisterComponent(context, sliderInput);
+      if (!inputElement) return;
+			inputElement.removeEventListener('focusin', handleFocusIn);
+			inputElement.removeEventListener('focusout', handleFocusOut);
     }
   })
 </script>
@@ -61,6 +78,7 @@
   bind:this={slider}
   bind:inputElement
   bind:value
+  {tabindex}
   {...props}
 ></Slider>
 

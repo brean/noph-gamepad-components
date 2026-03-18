@@ -1,14 +1,16 @@
 <script lang="ts">
   import { Joystick, Icon, GamepadButtons } from "svelte-gamepad-virtual-joystick"
   import { Snackbar} from 'noph-ui';
-  import { onMount } from 'svelte';
+    import { untrack } from "svelte";
 
   let position: [x: number, y: number] = $state([0, 0]);
 
   let snackbar = $state<HTMLElement>();
-	onMount(() => {
-    if (!snackbar) return;
-    snackbar.showPopover();
+	$effect(() => {
+    untrack(() => {
+      if (!snackbar) return;
+      snackbar.showPopover();
+    })
   });
 </script>
 

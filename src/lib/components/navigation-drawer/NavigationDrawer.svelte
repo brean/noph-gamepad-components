@@ -2,7 +2,7 @@
 	import { NavigationDrawer as NophNavDrawer } from 'noph-ui';
 	import type { NavigationDrawerProps } from './types.ts'
     import { addActiveComponent, component_state, GamepadButtons, PrevNextInputComponent, registerComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
-    import { onMount } from 'svelte';
+    import { untrack } from 'svelte';
 	let {
 		children,
 		requiresFocus = true,
@@ -75,29 +75,32 @@
 	}
 
 	let navInputComponent: PrevNextInputComponent;
-	
-	onMount(() => {
+
+	const handleFocusIn = () => addActiveComponent(navInputComponent);
+	const handleFocusOut = () => {
+		const idx = component_state.activeComponents.indexOf(navInputComponent);
+		if (idx >= 0) component_state.activeComponents.splice(idx, 1);
+	};
+
+	$effect(() => {
 		if (!element) return;
-		navInputComponent = new PrevNextInputComponent(
-			inputMapping, _changeFocus,
-			element, requiresFocus, 
-			_onpressed, onhold, onrelease, consumePress
-		);
 
-		registerComponent(context, navInputComponent);
-
-		const handleFocusIn = () => addActiveComponent(navInputComponent);
-		const handleFocusOut = () => {
-			const idx = component_state.activeComponents.indexOf(navInputComponent);
-			if (idx >= 0) component_state.activeComponents.splice(idx, 1);
-		};
-
-		element.addEventListener('focusin', handleFocusIn);
-		element.addEventListener('focusout', handleFocusOut);
-
-		return () => {
+		untrack(() => {
 			if (!element) return;
+			navInputComponent = new PrevNextInputComponent(
+				inputMapping, _changeFocus,
+				element, requiresFocus, 
+				_onpressed, onhold, onrelease, consumePress
+			);
+
+			registerComponent(context, navInputComponent);
+
+			element.addEventListener('focusin', handleFocusIn);
+			element.addEventListener('focusout', handleFocusOut);
+		});
+		return () => {
 			unregisterComponent(context, navInputComponent);
+			if (!element) return;
 			element.removeEventListener('focusin', handleFocusIn);
 			element.removeEventListener('focusout', handleFocusOut);
 
@@ -109,3 +112,13 @@
 		{@render children()}
 	{/if}
 </NophNavDrawer>
+
+<style>
+	:global(.np-navigation-drawer-item:focus) {
+		outline-style: solid;
+		outline-color: var(--np-color-secondary);
+		outline-width: 3px;
+		outline-offset: -3px;
+		animation: focusAnimation 0.3s ease forwards;
+	}
+</style>

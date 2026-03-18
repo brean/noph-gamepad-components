@@ -2,11 +2,12 @@
 	import Button from '$lib/components/button/Button.svelte';
   import { GamepadButtons, Icon } from 'svelte-gamepad-virtual-joystick';
 
+  let clicks: number = $state(0);
+
   function handleClick() {
     console.log('Action triggered.');
     clicks++;
   }
-  let clicks = 0;
 </script>
 
 <svelte:head>

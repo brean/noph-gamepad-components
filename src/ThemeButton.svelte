@@ -3,7 +3,7 @@
 	import { IconButton, SegmentedButton, Menu } from 'noph-ui'
 	import Icon from './lib/noph_ext/Icon.svelte'
 	import { argbFromHex, Hct, hexFromArgb, SchemeContent } from '@materialx/material-color-utilities'
-	import { onMount } from 'svelte'
+    import { untrack } from 'svelte';
 
 	let theme: string | null = $state(null)
 	let value = $state<string>('#5fb9e9')
@@ -141,14 +141,16 @@
 }`
 		navigator.clipboard.writeText(schemeString)
 	}
-	onMount(() => {
+	$effect(() => {
 		if (browser) {
-			theme = localStorage.getItem('theme')
-			const sourceColor = sessionStorage.getItem('sourceColor')
-			if (sourceColor) {
-				value = sourceColor
-				changeTheme()
-			}
+			untrack(() => {
+				theme = localStorage.getItem('theme')
+				const sourceColor = sessionStorage.getItem('sourceColor')
+				if (sourceColor) {
+					value = sourceColor
+					changeTheme()
+				}
+			});
 		}
 	})
 </script>
