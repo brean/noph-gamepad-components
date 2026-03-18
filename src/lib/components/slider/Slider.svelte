@@ -31,12 +31,6 @@
 
   let sliderInput: SliderInputComponent;
 
-	const handleFocusIn = () => addActiveComponent(sliderInput);
-	const handleFocusOut = () => {
-		const idx = component_state.activeComponents.indexOf(sliderInput);
-		if (idx >= 0) component_state.activeComponents.splice(idx, 1);
-	};
-
   $effect(() => {
     if (!inputElement) return;
     untrack(() => {
@@ -48,15 +42,10 @@
         props.min || 0, props.max || 100, props.step || 1,
         inputElement, requiresFocus,  props.onpressed);
       registerComponent(context, sliderInput);
-
-			inputElement.addEventListener('focusin', handleFocusIn);
-			inputElement.addEventListener('focusout', handleFocusOut);
     })
     return () => {
       unregisterComponent(context, sliderInput);
       if (!inputElement) return;
-			inputElement.removeEventListener('focusin', handleFocusIn);
-			inputElement.removeEventListener('focusout', handleFocusOut);
     }
   })
 </script>
