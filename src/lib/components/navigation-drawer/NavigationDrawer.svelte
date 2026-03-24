@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { NavigationDrawer as NophNavDrawer } from 'noph-ui';
 	import type { NavigationDrawerProps } from './types.ts'
-    import { addActiveComponent, component_state, GamepadButtons, PrevNextInputComponent, registerComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
+	import { addActiveComponent, component_state, GamepadButtons, PrevNextInputComponent, registerComponent, unregisterComponent } from 'svelte-gamepad-virtual-joystick';
     import { untrack } from 'svelte';
 	let {
 		children,
@@ -54,13 +54,6 @@
 		(items[focussed] as HTMLElement)?.focus();
 	}
 
-	const focusItem = (index: number) => {
-		const items = getNavItems();
-		if (items.length === 0) return;
-		focussed = index;
-		(items[focussed] as HTMLElement)?.focus();
-	}
-
 	const _onpressed = () => {
 		const items = getNavItems();
 		const target = items[focussed] as HTMLElement;
@@ -76,7 +69,16 @@
 
 	let navInputComponent: PrevNextInputComponent;
 
-	const handleFocusIn = () => addActiveComponent(navInputComponent);
+	const handleFocusIn = (event: FocusEvent) => {
+		addActiveComponent(navInputComponent);
+		const items = getNavItems();
+		const target = event.target as HTMLElement;
+		const index = items.indexOf(target);
+		
+		if (index !== -1) {
+			focussed = index;
+		}
+	}
 	const handleFocusOut = () => {
 		const idx = component_state.activeComponents.indexOf(navInputComponent);
 		if (idx >= 0) component_state.activeComponents.splice(idx, 1);
